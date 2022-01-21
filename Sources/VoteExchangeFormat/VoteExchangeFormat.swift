@@ -1,17 +1,17 @@
 import Foundation
 public struct GroupData: Codable{
-    public init(name: String, availableVotes: Set<VoteMetaData>, canDeleteVotes: Bool) {
+    public init(name: String, availableVotes: Set<VoteMetadata>, canDeleteVotes: Bool) {
         self.name = name
         self.availableVotes = availableVotes
         self.canDeleteVotes = canDeleteVotes
     }
     
     public let name: String
-    public let availableVotes: Set<VoteMetaData>
+    public let availableVotes: Set<VoteMetadata>
     public let canDeleteVotes: Bool
 }
 
-public struct VoteMetaData: Codable, Hashable{
+public struct VoteMetadata: Codable, Hashable{
     public init(id: UUID, name: String, kind: Kind, isOpen: Bool, hasVoted: Bool) {
         self.id = id
         self.name = name
@@ -31,6 +31,23 @@ public struct VoteMetaData: Codable, Hashable{
         case AlternativeVote = "Alternative vote"
         case SinMajVote = "Simple majority vote"
         case YNVote = "Yes no vote"
+    }
+}
+
+
+public struct ExtendedVoteData: Codable{
+    public init(metaData: VoteMetadata, options: [String], validatorKeys: [String]) {
+        self.metaData = metaData
+        self.options = options
+        self.validatorKeys = validatorKeys
+    }
+    
+    public let metaData: VoteMetadata
+    public let options: [String]
+    public let validatorKeys: [String]
+    
+    public var allowsBlanks: Bool {
+        validatorKeys.contains("NoBlanks")
     }
 }
 
