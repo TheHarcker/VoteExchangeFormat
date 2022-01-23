@@ -29,21 +29,21 @@ public struct VoteMetadata: Codable, Hashable{
     
     public enum Kind: String, Codable{
         case AlternativeVote = "Alternative vote"
-        case SinMajVote = "Simple majority vote"
+        case SimMajVote = "Simple majority vote"
         case YNVote = "Yes no vote"
     }
 }
 
 
 public struct ExtendedVoteData: Codable{
-    public init(metaData: VoteMetadata, options: [String], validatorKeys: [String]) {
-        self.metaData = metaData
+    public init(metadata: VoteMetadata, options: [ExchangeOption], validatorKeys: [String]) {
+        self.metadata = metadata
         self.options = options
         self.validatorKeys = validatorKeys
     }
     
-    public let metaData: VoteMetadata
-    public let options: [String]
+    public let metadata: VoteMetadata
+    public let options: [ExchangeOption]
     public let validatorKeys: [String]
     
     public var allowsBlanks: Bool {
@@ -51,6 +51,15 @@ public struct ExtendedVoteData: Codable{
     }
 }
 
+public struct ExchangeOption: Codable{
+	public init(name: String, uuid: UUID) {
+		self.name = name
+		self.uuid = uuid
+	}
+	
+	let name: String
+	let uuid: UUID
+}
 //public struct UserInfo: Codable{
 //    public init(constituentID: String, name: String?) {
 //        self.constituentID = constituentID
