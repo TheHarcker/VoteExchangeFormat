@@ -74,7 +74,7 @@ public enum APIPaths{
 	case join
 	case getdata
 	case getvote(id: UUID)
-	case postvote
+    case postvote(id: UUID)
 
 	public func relativeStringValue() -> String{
 		switch self {
@@ -84,8 +84,8 @@ public enum APIPaths{
 			return "getdata"
 		case .getvote(let id):
 			return "getvote/\(id.uuidString)"
-		case .postvote:
-			return "postvote"
+        case .postvote(let id):
+			return "postvote/\(id.uuidString)"
 		}
 	}
 }
