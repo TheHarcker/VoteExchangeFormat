@@ -47,7 +47,7 @@ public struct ExtendedVoteData: Codable{
     public let validatorKeys: [String]
     
     public var allowsBlanks: Bool {
-        validatorKeys.contains("NoBlanks")
+        !validatorKeys.contains("NoBlanks")
     }
 }
 
