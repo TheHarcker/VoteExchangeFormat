@@ -57,8 +57,8 @@ public struct ExchangeOption: Codable{
 		self.uuid = uuid
 	}
 	
-	let name: String
-	let uuid: UUID
+	public let name: String
+	public let uuid: UUID
 }
 //public struct UserInfo: Codable{
 //    public init(constituentID: String, name: String?) {
