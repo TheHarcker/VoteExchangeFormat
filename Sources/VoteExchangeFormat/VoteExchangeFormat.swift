@@ -60,3 +60,23 @@ public struct ExtendedVoteData: Codable{
 //    public let constituentID: String
 //    public let name: String?
 //}
+
+public enum APIPaths{
+	case join
+	case getdata
+	case getvote(id: UUID)
+	case postvote
+
+	public func relativeStringValue() -> String{
+		switch self {
+		case .join:
+			return "join"
+		case .getdata:
+			return "getdata"
+		case .getvote(let id):
+			return "getvote/\(id.uuidString)"
+		case .postvote:
+			return "postvote"
+		}
+	}
+}
