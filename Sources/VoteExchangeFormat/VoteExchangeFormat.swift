@@ -1,5 +1,5 @@
 import Foundation
-public struct GroupData: Codable{
+public struct GroupData: Codable, Hashable{
     public init(name: String, availableVotes: Set<VoteMetadata>, canDeleteVotes: Bool) {
         self.name = name
         self.availableVotes = availableVotes
@@ -27,7 +27,7 @@ public struct VoteMetadata: Codable, Hashable{
     public let hasVoted: Bool
     
     
-    public enum Kind: String, Codable{
+    public enum Kind: String, Codable, Hashable{
         case AlternativeVote = "Alternative vote"
         case SimMajVote = "Simple majority vote"
         case YNVote = "Yes no vote"
@@ -35,7 +35,7 @@ public struct VoteMetadata: Codable, Hashable{
 }
 
 
-public struct ExtendedVoteData: Codable{
+public struct ExtendedVoteData: Codable, Hashable{
     public init(metadata: VoteMetadata, options: [ExchangeOption], validatorKeys: [String]) {
         self.metadata = metadata
         self.options = options
@@ -51,14 +51,14 @@ public struct ExtendedVoteData: Codable{
     }
 }
 
-public struct ExchangeOption: Codable{
-	public init(name: String, uuid: UUID) {
-		self.name = name
-		self.uuid = uuid
-	}
-	
-	public let name: String
-	public let uuid: UUID
+public struct ExchangeOption: Codable, Hashable{
+    public init(name: String, uuid: UUID) {
+        self.name = name
+        self.uuid = uuid
+    }
+    
+    public let name: String
+    public let uuid: UUID
 }
 //public struct UserInfo: Codable{
 //    public init(constituentID: String, name: String?) {
@@ -70,22 +70,22 @@ public struct ExchangeOption: Codable{
 //    public let name: String?
 //}
 
-public enum APIPaths{
-	case join
-	case getdata
-	case getvote(id: UUID)
+public enum APIPaths: Codable, Hashable{
+    case join
+    case getdata
+    case getvote(id: UUID)
     case postvote(id: UUID)
-
-	public func relativeStringValue() -> String{
-		switch self {
-		case .join:
-			return "join"
-		case .getdata:
-			return "getdata"
-		case .getvote(let id):
-			return "getvote/\(id.uuidString)"
+    
+    public func relativeStringValue() -> String{
+        switch self {
+        case .join:
+            return "join"
+        case .getdata:
+            return "getdata"
+        case .getvote(let id):
+            return "getvote/\(id.uuidString)"
         case .postvote(let id):
-			return "postvote/\(id.uuidString)"
-		}
-	}
+            return "postvote/\(id.uuidString)"
+        }
+    }
 }
