@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol VoteData: Codable{
+public protocol VoteData: Codable, Sendable{
     var blank: Bool? {get}
     static func blank() -> Self
 }

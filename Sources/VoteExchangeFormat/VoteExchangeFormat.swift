@@ -1,5 +1,5 @@
 import Foundation
-public struct GroupData: Codable, Hashable{
+public struct GroupData: Codable, Hashable, Sendable{
     public init(name: String, availableVotes: Set<VoteMetadata>, canDeleteVotes: Bool) {
         self.name = name
         self.availableVotes = availableVotes
@@ -11,7 +11,7 @@ public struct GroupData: Codable, Hashable{
     public let canDeleteVotes: Bool
 }
 
-public struct VoteMetadata: Codable, Hashable{
+public struct VoteMetadata: Codable, Hashable, Sendable{
     public init(id: UUID, name: String, kind: Kind, isOpen: Bool, hasVoted: Bool) {
         self.id = id
         self.name = name
@@ -27,7 +27,7 @@ public struct VoteMetadata: Codable, Hashable{
     public let hasVoted: Bool
     
     
-    public enum Kind: String, Codable, Hashable{
+    public enum Kind: String, Codable, Hashable, Sendable{
         case AlternativeVote = "Alternative vote"
         case SimMajVote = "Simple majority vote"
         case YNVote = "Yes no vote"
@@ -35,7 +35,7 @@ public struct VoteMetadata: Codable, Hashable{
 }
 
 
-public struct ExtendedVoteData: Codable, Hashable{
+public struct ExtendedVoteData: Codable, Hashable, Sendable{
     public init(metadata: VoteMetadata, options: [ExchangeOption], validatorKeys: [String]) {
         self.metadata = metadata
         self.options = options
@@ -51,7 +51,7 @@ public struct ExtendedVoteData: Codable, Hashable{
     }
 }
 
-public struct ExchangeOption: Codable, Hashable{
+public struct ExchangeOption: Codable, Hashable, Sendable{
     public init(name: String, uuid: UUID) {
         self.name = name
         self.uuid = uuid
@@ -70,7 +70,7 @@ public struct ExchangeOption: Codable, Hashable{
 //    public let name: String?
 //}
 
-public enum APIPaths: Codable, Hashable{
+public enum APIPaths: Codable, Hashable, Sendable{
     case join
     case getdata
     case getvote(id: UUID)
