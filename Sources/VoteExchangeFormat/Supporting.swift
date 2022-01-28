@@ -1,2 +1,2 @@
 import Foundation
-extension UUID: Sendable{}
+extension UUID: @unchecked Sendable{}
